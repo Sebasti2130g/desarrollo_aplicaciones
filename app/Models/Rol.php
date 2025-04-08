@@ -5,6 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *     schema="Rol",
+ *     title="Rol",
+ *     description="Esquema del modelo Rol",
+ *     required={"nombre"},
+ *     @OA\Property(
+ *         property="id",
+ *         type="integer",
+ *         readOnly=true,
+ *         description="ID autoincremental del rol"
+ *     ),
+ *     @OA\Property(
+ *         property="nombre",
+ *         type="string",
+ *         maxLength=255,
+ *         description="Nombre del rol"
+ *     )
+ * )
+ */
 class Rol extends Model
 {
     use HasFactory;

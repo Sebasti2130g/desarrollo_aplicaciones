@@ -5,6 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *     schema="SolicitudAlquiler",
+ *     type="object",
+ *     title="SolicitudAlquiler",
+ *     required={"fecha_solicitud", "usuario_id", "apartamento_id", "estado_solicitud"},
+ *     @OA\Property(property="id", type="integer", readOnly=true, example=1),
+ *     @OA\Property(property="fecha_solicitud", type="string", format="date", example="2024-04-08"),
+ *     @OA\Property(property="usuario_id", type="integer", example=2),
+ *     @OA\Property(property="apartamento_id", type="integer", example=3),
+ *     @OA\Property(property="estado_solicitud", type="string", example="pendiente")
+ * )
+ */
 class SolicitudAlquiler extends Model
 {
     use HasFactory;
@@ -12,6 +25,9 @@ class SolicitudAlquiler extends Model
     protected $table = 'solicitud_alquiler';
     protected $fillable = ['fecha_solicitud', 'usuario_id', 'apartamento_id', 'estado_solicitud'];
     public $timestamps = false;
+    protected $casts = [
+        'fecha_solicitud' => 'date',
+    ];
 
     /**
      * Relación de una solicitud de alquiler con un usuario.

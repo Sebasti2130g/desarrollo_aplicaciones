@@ -8,7 +8,16 @@ use Illuminate\Http\Request;
 class RolPermisoController extends Controller
 {
     /**
-     * Mostrar todas las relaciones de rol y permiso.
+     * @OA\Get(
+     *     path="/api/rol-permiso",
+     *     tags={"RolPermiso"},
+     *     summary="Listar todas las relaciones rol-permiso",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de relaciones rol-permiso",
+     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/RolPermiso"))
+     *     )
+     * )
      */
     public function index()
     {
@@ -17,7 +26,24 @@ class RolPermisoController extends Controller
     }
 
     /**
-     * Mostrar una relación específica de rol y permiso.
+     * @OA\Get(
+     *     path="/api/rol-permiso/{id}",
+     *     tags={"RolPermiso"},
+     *     summary="Obtener una relación rol-permiso específica",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID de la relación",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Relación encontrada",
+     *         @OA\JsonContent(ref="#/components/schemas/RolPermiso")
+     *     ),
+     *     @OA\Response(response=404, description="Relación no encontrada")
+     * )
      */
     public function show($id)
     {
@@ -29,7 +55,15 @@ class RolPermisoController extends Controller
     }
 
     /**
-     * Método de creación (solo muestra un mensaje en la API).
+     * @OA\Get(
+     *     path="/api/rol-permiso/create",
+     *     tags={"RolPermiso"},
+     *     summary="Mostrar mensaje de creación de rol-permiso (solo demostrativo)",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Mensaje de formulario de creación"
+     *     )
+     * )
      */
     public function create()
     {
@@ -37,7 +71,25 @@ class RolPermisoController extends Controller
     }
 
     /**
-     * Almacenar una nueva relación rol-permiso.
+     * @OA\Post(
+     *     path="/api/rol-permiso",
+     *     tags={"RolPermiso"},
+     *     summary="Crear una nueva relación rol-permiso",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"rol_id","permiso_id"},
+     *             @OA\Property(property="rol_id", type="integer", example=1),
+     *             @OA\Property(property="permiso_id", type="integer", example=2)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Relación rol-permiso creada exitosamente",
+     *         @OA\JsonContent(ref="#/components/schemas/RolPermiso")
+     *     ),
+     *     @OA\Response(response=422, description="Datos inválidos")
+     * )
      */
     public function store(Request $request)
     {
@@ -51,7 +103,33 @@ class RolPermisoController extends Controller
     }
 
     /**
-     * Actualizar una relación de rol-permiso existente.
+     * @OA\Put(
+     *     path="/api/rol-permiso/{id}",
+     *     tags={"RolPermiso"},
+     *     summary="Actualizar una relación rol-permiso existente",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID de la relación",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"rol_id", "permiso_id"},
+     *             @OA\Property(property="rol_id", type="integer", example=1),
+     *             @OA\Property(property="permiso_id", type="integer", example=2)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Relación actualizada exitosamente",
+     *         @OA\JsonContent(ref="#/components/schemas/RolPermiso")
+     *     ),
+     *     @OA\Response(response=404, description="Relación no encontrada"),
+     *     @OA\Response(response=422, description="Datos inválidos")
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -69,7 +147,23 @@ class RolPermisoController extends Controller
     }
 
     /**
-     * Eliminar una relación de rol-permiso.
+     * @OA\Delete(
+     *     path="/api/rol-permiso/{id}",
+     *     tags={"RolPermiso"},
+     *     summary="Eliminar una relación rol-permiso",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID de la relación a eliminar",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Relación eliminada exitosamente"
+     *     ),
+     *     @OA\Response(response=404, description="Relación no encontrada")
+     * )
      */
     public function destroy($id)
     {

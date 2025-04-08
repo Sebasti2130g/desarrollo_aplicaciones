@@ -5,6 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *     schema="EstadoAlquiler",
+ *     type="object",
+ *     title="EstadoAlquiler",
+ *     required={"contrato_id", "usuario_id", "estado", "fecha_reporte"},
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="contrato_id", type="integer", example=5),
+ *     @OA\Property(property="usuario_id", type="integer", example=2),
+ *     @OA\Property(property="estado", type="string", example="Activo"),
+ *     @OA\Property(property="fecha_reporte", type="string", format="date", example="2025-04-08")
+ * )
+ */
+
 class EstadoAlquiler extends Model
 {
     use HasFactory;
@@ -13,7 +27,7 @@ class EstadoAlquiler extends Model
     protected $fillable = ['contrato_id', 'usuario_id', 'estado', 'fecha_reporte'];
 
     protected $casts = [
-        'fecha_reporte' => 'datetime',
+        'fecha_reporte' => 'date',
     ];
     public $timestamps = false;
     /**

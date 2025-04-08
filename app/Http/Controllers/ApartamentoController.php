@@ -8,7 +8,12 @@ use Illuminate\Http\Request;
 class ApartamentoController extends Controller
 {
     /**
-     * Muestra todos los apartamentos.
+     * @OA\Get(
+     *     path="/api/apartamentos",
+     *     summary="Listar todos los apartamentos",
+     *     tags={"Apartamento"},
+     *     @OA\Response(response=200, description="Lista de apartamentos")
+     * )
      */
     public function index()
     {
@@ -17,7 +22,14 @@ class ApartamentoController extends Controller
     }
 
     /**
-     * Muestra un apartamento específico.
+     * @OA\Get(
+     *     path="/api/apartamentos/{id}",
+     *     summary="Mostrar un apartamento específico",
+     *     tags={"Apartamento"},
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=200, description="Datos del apartamento"),
+     *     @OA\Response(response=404, description="Apartamento no encontrado")
+     * )
      */
     public function show($id)
     {
@@ -29,7 +41,12 @@ class ApartamentoController extends Controller
     }
 
     /**
-     * Devuelve los datos necesarios para el formulario de creación de apartamentos.
+     * @OA\Get(
+     *     path="/api/apartamentos/create",
+     *     summary="Obtener formulario para crear apartamento",
+     *     tags={"Apartamento"},
+     *     @OA\Response(response=200, description="Formulario de creación de apartamentos")
+     * )
      */
     public function create()
     {
@@ -37,7 +54,17 @@ class ApartamentoController extends Controller
     }
 
     /**
-     * Almacena un nuevo apartamento en la base de datos.
+     * @OA\Post(
+     *     path="/api/apartamentos",
+     *     summary="Crear un nuevo apartamento",
+     *     tags={"Apartamento"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Apartamento")
+     *     ),
+     *     @OA\Response(response=201, description="Apartamento creado correctamente"),
+     *     @OA\Response(response=422, description="Errores de validación")
+     * )
      */
     public function store(Request $request)
     {
@@ -55,7 +82,18 @@ class ApartamentoController extends Controller
     }
 
     /**
-     * Actualiza un apartamento en la base de datos.
+     * @OA\Put(
+     *     path="/api/apartamentos/{id}",
+     *     summary="Actualizar un apartamento",
+     *     tags={"Apartamento"},
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Apartamento")
+     *     ),
+     *     @OA\Response(response=200, description="Apartamento actualizado correctamente"),
+     *     @OA\Response(response=404, description="Apartamento no encontrado")
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -77,7 +115,14 @@ class ApartamentoController extends Controller
     }
 
     /**
-     * Elimina un apartamento de la base de datos.
+     * @OA\Delete(
+     *     path="/api/apartamentos/{id}",
+     *     summary="Eliminar un apartamento",
+     *     tags={"Apartamento"},
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=200, description="Apartamento eliminado correctamente"),
+     *     @OA\Response(response=404, description="Apartamento no encontrado")
+     * )
      */
     public function destroy($id)
     {

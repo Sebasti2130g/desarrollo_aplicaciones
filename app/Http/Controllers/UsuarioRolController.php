@@ -8,7 +8,15 @@ use Illuminate\Http\Request;
 class UsuarioRolController extends Controller
 {
     /**
-     * Mostrar todas las relaciones de usuario y rol.
+     * @OA\Get(
+     *     path="/api/usuario-rol",
+     *     summary="Lista todas las relaciones usuario-rol",
+     *     tags={"UsuarioRol"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de relaciones usuario-rol"
+     *     )
+     * )
      */
     public function index()
     {
@@ -17,7 +25,26 @@ class UsuarioRolController extends Controller
     }
 
     /**
-     * Mostrar una relación específica de usuario y rol.
+     * @OA\Get(
+     *     path="/api/usuario-rol/{id}",
+     *     summary="Mostrar una relación usuario-rol específica",
+     *     tags={"UsuarioRol"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID de la relación usuario-rol",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Relación encontrada"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Relación no encontrada"
+     *     )
+     * )
      */
     public function show($id)
     {
@@ -29,7 +56,15 @@ class UsuarioRolController extends Controller
     }
 
     /**
-     * Método de creación (solo muestra un mensaje en la API).
+     * @OA\Get(
+     *     path="/api/usuario-rol/create",
+     *     summary="Formulario de creación de usuario-rol",
+     *     tags={"UsuarioRol"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Mensaje de formulario de creación"
+     *     )
+     * )
      */
     public function create()
     {
@@ -37,7 +72,23 @@ class UsuarioRolController extends Controller
     }
 
     /**
-     * Almacenar una nueva relación usuario-rol.
+     * @OA\Post(
+     *     path="/api/usuario-rol",
+     *     summary="Crear una nueva relación usuario-rol",
+     *     tags={"UsuarioRol"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"usuario_id", "rol_id"},
+     *             @OA\Property(property="usuario_id", type="integer"),
+     *             @OA\Property(property="rol_id", type="integer")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Relación creada exitosamente"
+     *     )
+     * )
      */
     public function store(Request $request)
     {
@@ -51,7 +102,34 @@ class UsuarioRolController extends Controller
     }
 
     /**
-     * Actualizar una relación de usuario-rol existente.
+     * @OA\Put(
+     *     path="/api/usuario-rol/{id}",
+     *     summary="Actualizar una relación usuario-rol existente",
+     *     tags={"UsuarioRol"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID de la relación usuario-rol",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"usuario_id", "rol_id"},
+     *             @OA\Property(property="usuario_id", type="integer"),
+     *             @OA\Property(property="rol_id", type="integer")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Relación actualizada correctamente"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Relación no encontrada"
+     *     )
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -69,7 +147,26 @@ class UsuarioRolController extends Controller
     }
 
     /**
-     * Eliminar una relación de usuario-rol.
+     * @OA\Delete(
+     *     path="/api/usuario-rol/{id}",
+     *     summary="Eliminar una relación usuario-rol",
+     *     tags={"UsuarioRol"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID de la relación usuario-rol",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Relación eliminada correctamente"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Relación no encontrada"
+     *     )
+     * )
      */
     public function destroy($id)
     {
@@ -81,4 +178,3 @@ class UsuarioRolController extends Controller
         return response()->json(['message' => 'Relación de usuario y rol no encontrada'], 404);
     }
 }
-

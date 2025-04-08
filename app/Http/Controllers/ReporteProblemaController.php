@@ -8,7 +8,16 @@ use Illuminate\Http\Request;
 class ReporteProblemaController extends Controller
 {
     /**
-     * Muestra todos los reportes de problemas.
+     * @OA\Get(
+     *     path="/api/reporte-problema",
+     *     summary="Listar todos los reportes de problemas",
+     *     tags={"ReporteProblema"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de reportes de problemas",
+     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/ReporteProblema"))
+     *     )
+     * )
      */
     public function index()
     {
@@ -17,7 +26,15 @@ class ReporteProblemaController extends Controller
     }
 
     /**
-     * Devuelve los datos necesarios para el formulario de creación.
+     * @OA\Get(
+     *     path="/api/reporte-problema/create",
+     *     summary="Formulario de creación de reportes de problemas",
+     *     tags={"ReporteProblema"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Formulario de creación"
+     *     )
+     * )
      */
     public function create()
     {
@@ -25,7 +42,26 @@ class ReporteProblemaController extends Controller
     }
 
     /**
-     * Almacena un nuevo reporte de problema.
+     * @OA\Post(
+     *     path="/api/reporte-problema",
+     *     summary="Crear un nuevo reporte de problema",
+     *     tags={"ReporteProblema"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"apartamento_id", "usuario_id", "descripcion", "estado", "fecha_reporte"},
+     *             @OA\Property(property="apartamento_id", type="integer", example=1),
+     *             @OA\Property(property="usuario_id", type="integer", example=2),
+     *             @OA\Property(property="descripcion", type="string", example="Grieta en la pared"),
+     *             @OA\Property(property="estado", type="string", example="pendiente"),
+     *             @OA\Property(property="fecha_reporte", type="string", format="date", example="2025-04-08")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Reporte de problema creado"
+     *     )
+     * )
      */
     public function store(Request $request)
     {
@@ -42,7 +78,23 @@ class ReporteProblemaController extends Controller
     }
 
     /**
-     * Muestra un reporte de problema específico.
+     * @OA\Get(
+     *     path="/api/reporte-problema/{id}",
+     *     summary="Obtener un reporte de problema específico",
+     *     tags={"ReporteProblema"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Reporte de problema encontrado",
+     *         @OA\JsonContent(ref="#/components/schemas/ReporteProblema")
+     *     ),
+     *     @OA\Response(response=404, description="Reporte de problema no encontrado")
+     * )
      */
     public function show($id)
     {
@@ -54,7 +106,22 @@ class ReporteProblemaController extends Controller
     }
 
     /**
-     * Devuelve los datos necesarios para el formulario de edición.
+     * @OA\Get(
+     *     path="/api/reporte-problema/{id}/edit",
+     *     summary="Formulario de edición de reporte de problema",
+     *     tags={"ReporteProblema"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Formulario de edición"
+     *     ),
+     *     @OA\Response(response=404, description="Reporte de problema no encontrado")
+     * )
      */
     public function edit($id)
     {
@@ -66,7 +133,33 @@ class ReporteProblemaController extends Controller
     }
 
     /**
-     * Actualiza un reporte de problema en la base de datos.
+     * @OA\Put(
+     *     path="/api/reporte-problema/{id}",
+     *     summary="Actualizar un reporte de problema",
+     *     tags={"ReporteProblema"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"apartamento_id", "usuario_id", "descripcion", "estado", "fecha_reporte"},
+     *             @OA\Property(property="apartamento_id", type="integer", example=1),
+     *             @OA\Property(property="usuario_id", type="integer", example=2),
+     *             @OA\Property(property="descripcion", type="string", example="Fuga en la cocina"),
+     *             @OA\Property(property="estado", type="string", example="atendido"),
+     *             @OA\Property(property="fecha_reporte", type="string", format="date", example="2025-04-09")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Reporte actualizado correctamente"
+     *     ),
+     *     @OA\Response(response=404, description="Reporte no encontrado")
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -87,7 +180,19 @@ class ReporteProblemaController extends Controller
     }
 
     /**
-     * Elimina un reporte de problema de la base de datos.
+     * @OA\Delete(
+     *     path="/api/reporte-problema/{id}",
+     *     summary="Eliminar un reporte de problema",
+     *     tags={"ReporteProblema"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Reporte de problema eliminado"),
+     *     @OA\Response(response=404, description="Reporte de problema no encontrado")
+     * )
      */
     public function destroy($id)
     {

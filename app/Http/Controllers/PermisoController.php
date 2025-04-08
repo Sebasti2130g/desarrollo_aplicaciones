@@ -8,7 +8,16 @@ use Illuminate\Http\Request;
 class PermisoController extends Controller
 {
     /**
-     * Muestra una lista de permisos.
+     * @OA\Get(
+     *     path="/api/permisos",
+     *     summary="Listar todos los permisos",
+     *     tags={"Permisos"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de permisos",
+     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Permiso"))
+     *     )
+     * )
      */
     public function index()
     {
@@ -17,7 +26,15 @@ class PermisoController extends Controller
     }
 
     /**
-     * Devuelve los datos necesarios para el formulario de creación.
+     * @OA\Get(
+     *     path="/api/permisos/create",
+     *     summary="Mostrar formulario de creación de permiso",
+     *     tags={"Permisos"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Formulario de creación"
+     *     )
+     * )
      */
     public function create()
     {
@@ -25,7 +42,20 @@ class PermisoController extends Controller
     }
 
     /**
-     * Almacena un nuevo permiso en la base de datos.
+     * @OA\Post(
+     *     path="/api/permisos",
+     *     summary="Crear un nuevo permiso",
+     *     tags={"Permisos"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Permiso")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Permiso creado",
+     *         @OA\JsonContent(ref="#/components/schemas/Permiso")
+     *     )
+     * )
      */
     public function store(Request $request)
     {
@@ -38,7 +68,22 @@ class PermisoController extends Controller
     }
 
     /**
-     * Muestra un permiso específico.
+     * @OA\Get(
+     *     path="/api/permisos/{id}",
+     *     summary="Obtener un permiso por ID",
+     *     tags={"Permisos"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Permiso encontrado",
+     *         @OA\JsonContent(ref="#/components/schemas/Permiso")
+     *     )
+     * )
      */
     public function show(Permiso $permiso)
     {
@@ -46,7 +91,22 @@ class PermisoController extends Controller
     }
 
     /**
-     * Devuelve los datos necesarios para el formulario de edición.
+     * @OA\Get(
+     *     path="/api/permisos/{id}/edit",
+     *     summary="Mostrar datos de un permiso para editar",
+     *     tags={"Permisos"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Datos del permiso",
+     *         @OA\JsonContent(ref="#/components/schemas/Permiso")
+     *     )
+     * )
      */
     public function edit(Permiso $permiso)
     {
@@ -54,7 +114,26 @@ class PermisoController extends Controller
     }
 
     /**
-     * Actualiza un permiso en la base de datos.
+     * @OA\Put(
+     *     path="/api/permisos/{id}",
+     *     summary="Actualizar un permiso",
+     *     tags={"Permisos"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Permiso")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Permiso actualizado",
+     *         @OA\JsonContent(ref="#/components/schemas/Permiso")
+     *     )
+     * )
      */
     public function update(Request $request, Permiso $permiso)
     {
@@ -67,7 +146,21 @@ class PermisoController extends Controller
     }
 
     /**
-     * Elimina un permiso de la base de datos.
+     * @OA\Delete(
+     *     path="/api/permisos/{id}",
+     *     summary="Eliminar un permiso",
+     *     tags={"Permisos"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Permiso eliminado"
+     *     )
+     * )
      */
     public function destroy(Permiso $permiso)
     {

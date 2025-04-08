@@ -5,6 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *     schema="ReporteProblema",
+ *     type="object",
+ *     title="Reporte de Problema",
+ *     required={"apartamento_id", "usuario_id", "descripcion", "estado", "fecha_reporte"},
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="apartamento_id", type="integer", example=5),
+ *     @OA\Property(property="usuario_id", type="integer", example=3),
+ *     @OA\Property(property="descripcion", type="string", example="La puerta del baño está dañada."),
+ *     @OA\Property(property="estado", type="string", enum={"pendiente", "atendido", "cerrado"}, example="pendiente"),
+ *     @OA\Property(property="fecha_reporte", type="string", format="date", example="2025-04-08")
+ * )
+ */
+
 class ReporteProblema extends Model
 {
     use HasFactory;
@@ -13,7 +28,7 @@ class ReporteProblema extends Model
     protected $fillable = ['apartamento_id', 'usuario_id', 'descripcion', 'estado', 'fecha_reporte'];
 
     protected $casts = [
-        'fecha_reporte' => 'datetime',
+        'fecha_reporte' => 'date',
     ];
     public $timestamps = false;
 

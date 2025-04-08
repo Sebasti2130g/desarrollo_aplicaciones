@@ -4,7 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+/**
+ * @OA\Schema(
+ *     schema="Contrato",
+ *     required={"usuario_id", "apartamento_id", "fecha_inicio", "fecha_fin", "firma_digital"},
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="usuario_id", type="integer", example=3),
+ *     @OA\Property(property="apartamento_id", type="integer", example=5),
+ *     @OA\Property(property="fecha_inicio", type="string", format="date", example="2025-05-01"),
+ *     @OA\Property(property="fecha_fin", type="string", format="date", example="2026-05-01"),
+ *     @OA\Property(property="firma_digital", type="string", example="firmado_digitalmente_123"),
+ * )
+ */
 class Contrato extends Model
 {
     use HasFactory;
@@ -13,8 +24,8 @@ class Contrato extends Model
     protected $fillable = ['usuario_id', 'apartamento_id', 'fecha_inicio', 'fecha_fin', 'firma_digital'];
 
     protected $casts = [
-        'fecha_inicio' => 'datetime',
-        'fecha_fin' => 'datetime',
+        'fecha_inicio' => 'date',
+        'fecha_fin' => 'date',
     ];
     public $timestamps = false;
     /**

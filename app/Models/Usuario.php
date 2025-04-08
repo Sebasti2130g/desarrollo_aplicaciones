@@ -5,6 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *     schema="Usuario",
+ *     title="Usuario",
+ *     type="object",
+ *     required={"nombre", "correo", "telefono", "contraseña"},
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="nombre", type="string", example="Juan Pérez"),
+ *     @OA\Property(property="correo", type="string", format="email", example="juan@example.com"),
+ *     @OA\Property(property="telefono", type="string", example="123456789"),
+ *     @OA\Property(property="contraseña", type="string", example="********")
+ * )
+ */
 class Usuario extends Model
 {
     use HasFactory;

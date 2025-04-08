@@ -8,7 +8,16 @@ use Illuminate\Http\Request;
 class RolController extends Controller
 {
     /**
-     * Muestra una lista de roles.
+     * @OA\Get(
+     *     path="/api/rol",
+     *     summary="Listar todos los roles",
+     *     tags={"Rol"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de roles",
+     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Rol"))
+     *     )
+     * )
      */
     public function index()
     {
@@ -16,7 +25,24 @@ class RolController extends Controller
     }
 
     /**
-     * Muestra un rol específico.
+     * @OA\Get(
+     *     path="/api/rol/{id}",
+     *     summary="Mostrar un rol específico",
+     *     tags={"Rol"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID del rol",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Rol encontrado",
+     *         @OA\JsonContent(ref="#/components/schemas/Rol")
+     *     ),
+     *     @OA\Response(response=404, description="Rol no encontrado")
+     * )
      */
     public function show(Rol $rol)
     {
@@ -24,7 +50,15 @@ class RolController extends Controller
     }
 
     /**
-     * Devuelve los datos necesarios para el formulario de creación.
+     * @OA\Get(
+     *     path="/api/rol/create",
+     *     summary="Vista de formulario de creación (placeholder)",
+     *     tags={"Rol"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Mensaje de formulario"
+     *     )
+     * )
      */
     public function create()
     {
@@ -32,7 +66,21 @@ class RolController extends Controller
     }
 
     /**
-     * Almacena un nuevo rol en la base de datos.
+     * @OA\Post(
+     *     path="/api/rol",
+     *     summary="Crear un nuevo rol",
+     *     tags={"Rol"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Rol")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Rol creado exitosamente",
+     *         @OA\JsonContent(ref="#/components/schemas/Rol")
+     *     ),
+     *     @OA\Response(response=422, description="Error de validación")
+     * )
      */
     public function store(Request $request)
     {
@@ -46,7 +94,28 @@ class RolController extends Controller
     }
 
     /**
-     * Actualiza un rol en la base de datos.
+     * @OA\Put(
+     *     path="/api/rol/{id}",
+     *     summary="Actualizar un rol",
+     *     tags={"Rol"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID del rol",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Rol")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Rol actualizado correctamente",
+     *         @OA\JsonContent(ref="#/components/schemas/Rol")
+     *     ),
+     *     @OA\Response(response=422, description="Error de validación")
+     * )
      */
     public function update(Request $request, Rol $rol)
     {
@@ -60,7 +129,22 @@ class RolController extends Controller
     }
 
     /**
-     * Elimina un rol de la base de datos.
+     * @OA\Delete(
+     *     path="/api/rol/{id}",
+     *     summary="Eliminar un rol",
+     *     tags={"Rol"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID del rol",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Rol eliminado correctamente"
+     *     )
+     * )
      */
     public function destroy(Rol $rol)
     {

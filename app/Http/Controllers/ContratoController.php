@@ -8,7 +8,16 @@ use Illuminate\Http\Request;
 class ContratoController extends Controller
 {
     /**
-     * Muestra todos los contratos.
+     * @OA\Get(
+     *     path="/contratos",
+     *     tags={"Contratos"},
+     *     summary="Lista todos los contratos",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de contratos",
+     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Contrato"))
+     *     )
+     * )
      */
     public function index()
     {
@@ -17,8 +26,28 @@ class ContratoController extends Controller
     }
 
     /**
-     * Muestra un contrato específico.
+     * @OA\Get(
+     *     path="/contratos/{id}",
+     *     tags={"Contratos"},
+     *     summary="Muestra un contrato específico",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Contrato encontrado",
+     *         @OA\JsonContent(ref="#/components/schemas/Contrato")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Contrato no encontrado"
+     *     )
+     * )
      */
+
     public function show($id)
     {
         $contrato = Contrato::with('usuario', 'apartamento')->find($id);
@@ -28,8 +57,16 @@ class ContratoController extends Controller
         return response()->json(['message' => 'Contrato no encontrado'], 404);
     }
 
-    /**
-     * Devuelve los datos necesarios para el formulario de creación de contrato.
+        /**
+     * @OA\Get(
+     *     path="/contratos/create",
+     *     tags={"Contratos"},
+     *     summary="Devuelve datos para el formulario de creación de contrato",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Formulario de creación de contratos"
+     *     )
+     * )
      */
     public function create()
     {
@@ -37,7 +74,20 @@ class ContratoController extends Controller
     }
 
     /**
-     * Almacena un nuevo contrato en la base de datos.
+     * @OA\Post(
+     *     path="/contratos",
+     *     tags={"Contratos"},
+     *     summary="Crea un nuevo contrato",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Contrato")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Contrato creado correctamente",
+     *         @OA\JsonContent(ref="#/components/schemas/Contrato")
+     *     )
+     * )
      */
     public function store(Request $request)
     {
@@ -54,7 +104,30 @@ class ContratoController extends Controller
     }
 
     /**
-     * Actualiza un contrato existente.
+     * @OA\Put(
+     *     path="/contratos/{id}",
+     *     tags={"Contratos"},
+     *     summary="Actualiza un contrato existente",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Contrato")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Contrato actualizado",
+     *         @OA\JsonContent(ref="#/components/schemas/Contrato")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Contrato no encontrado"
+     *     )
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -75,7 +148,25 @@ class ContratoController extends Controller
     }
 
     /**
-     * Elimina un contrato.
+     * @OA\Delete(
+     *     path="/contratos/{id}",
+     *     tags={"Contratos"},
+     *     summary="Elimina un contrato",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Contrato eliminado correctamente"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Contrato no encontrado"
+     *     )
+     * )
      */
     public function destroy($id)
     {

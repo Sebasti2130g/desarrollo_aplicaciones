@@ -5,6 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *     schema="Apartamento",
+ *     title="Apartamento",
+ *     required={"usuario_id", "edificio_id", "numero_apartamento", "piso", "precio", "tamaño"},
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="usuario_id", type="integer", example=2),
+ *     @OA\Property(property="edificio_id", type="integer", example=1),
+ *     @OA\Property(property="numero_apartamento", type="string", example="A101"),
+ *     @OA\Property(property="piso", type="integer", example=2),
+ *     @OA\Property(property="precio", type="number", format="float", example=950000),
+ *     @OA\Property(property="tamaño", type="number", format="float", example=75.5)
+ * )
+ */
+
 class Apartamento extends Model
 {
     use HasFactory;
