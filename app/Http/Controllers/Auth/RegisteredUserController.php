@@ -55,6 +55,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($usuario);
 
-        return redirect(RouteServiceProvider::HOME);
+        // Cambiar esta línea para redireccionar directamente a /home en lugar de usar RouteServiceProvider::HOME
+        return redirect('/home');
     }
 }
